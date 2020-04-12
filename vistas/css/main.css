@@ -68,7 +68,7 @@ body, html{
 /*----------  Page 404 styles  ----------*/
 .error-container{
 	height: 100%;
-	background-image: url(../assets/img/black.jpg);
+	background-image: url(../assets/img/city.png);
 	color: #fff;
 	display: flex;
 	align-items: center;
@@ -78,7 +78,7 @@ body, html{
 /*============ LogIn*/
 .login-container{
 	height: 100%;
-	background-image: url(../assets/img/black.jpg);
+	background-image: url(../assets/img/blue3D.png);
 	
 }
 .logInForm{
@@ -113,7 +113,7 @@ body, html{
 .dashboard-sideBar{
 	left: 0;
 	z-index: 2;
-	background-image: url('../assets/img/black.jpg');
+	background-image: url('../assets/img/colores.jpg');
 	border-right: 1px solid rgba(255, 255, 255, .7);
 	overflow: hidden;
 }
