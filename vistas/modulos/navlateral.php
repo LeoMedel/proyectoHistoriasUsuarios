@@ -9,8 +9,10 @@
 		<div class="full-box dashboard-sideBar-UserInfo">
 			<figure class="full-box">
 				<img src="<?php echo SERVERURL; ?>vistas/assets/avatars/<?php echo $_SESSION['foto_sesion'];?>" alt="UserIcon">
-				<figcaption class="text-center text-titles"><h4><?php echo $_SESSION['usuario_sesion'];?></h4></figcaption>
+				<figcaption class="text-center text-titles"><h4><?php echo $_SESSION['nombre_sesion']; ?> <?php echo $_SESSION['apellido_sesion']; ?> (<?php echo $_SESSION['usuario_sesion']; ?>)</h4></figcaption>
 			</figure>
+
+
 
 			<?php
 
@@ -25,6 +27,8 @@
 				
 
 			?>
+
+
 
 
 			<ul class="full-box list-unstyled text-center">
@@ -47,54 +51,63 @@
 		</div>
 		<!-- SideBar Menu -->
 		<ul class="list-unstyled full-box dashboard-sideBar-Menu">
-			<li>
-				<a href="<?php echo SERVERURL; ?>home/">
-					<i class="zmdi zmdi-home zmdi-hc-fw"></i> INICIO
-				</a>
-			</li>
-			<li>
-				<a href="#!" class="btn-sideBar-SubMenu">
-					<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Usuarios <i class="zmdi zmdi-caret-down pull-right"></i>
-				</a>
-				<ul class="list-unstyled full-box">
-					<li>
-						<a href="<?php echo SERVERURL; ?>adminlist/"><i class="zmdi zmdi-laptop zmdi-hc-fw"></i> Administradores</a>
-					</li>
-					<li>
-						<a href="<?php echo SERVERURL; ?>client/"><i class="zmdi zmdi-accounts-alt zmdi-hc-fw"></i> Docentes</a>
-					</li>
-					<li>
-						<a href="<?php echo SERVERURL; ?>client/"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i> Estudiantes</a>
-					</li>
-					<li>
-						<a href="<?php echo SERVERURL; ?>client/"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i> Clientes</a>
-					</li>
-				</ul>
-			</li>
-			<!--li>
-				<a href="#!" class="btn-sideBar-SubMenu">
-					<i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i class="zmdi zmdi-caret-down pull-right"></i>
-				</a>
-				<ul class="list-unstyled full-box">
-					<li>
-						<a href="<?php echo SERVERURL; ?>company/"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> Empresa</a>
-					</li>
-					<li>
-						<a href="<?php echo SERVERURL; ?>category/"><i class="zmdi zmdi-labels zmdi-hc-fw"></i> Categorías</a>
-					</li>
-					<li>
-						<a href="<?php echo SERVERURL; ?>provider/"><i class="zmdi zmdi-truck zmdi-hc-fw"></i> Proveedores</a>
-					</li>
-					<li>
-						<a href="<?php echo SERVERURL; ?>book/"><i class="zmdi zmdi-book zmdi-hc-fw"></i> Nuevo libro</a>
-					</li>
-				</ul>
-			</li>
+
+<?php		if ($_SESSION['tipo_sesion']=="Administrador")
+			{ ?>
+
+				<li>
+					<a href="<?php echo SERVERURL; ?>home/">
+						<i class="zmdi zmdi-home zmdi-hc-fw"></i> INICIO
+					</a>
+				</li>
+
+				<li>
+					<a href="#!" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Usuarios <i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a href="<?php echo SERVERURL; ?>adminlist/"><i class="zmdi zmdi-laptop zmdi-hc-fw"></i> Administradores</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>client/"><i class="zmdi zmdi-accounts-alt zmdi-hc-fw"></i> Docentes</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>client/"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i> Estudiantes</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>client/"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i> Clientes</a>
+						</li>
+					</ul>
+				</li>
+
+				<li>
+					<a href="#!" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a href="<?php echo SERVERURL; ?>company/"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> Empresa</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>category/"><i class="zmdi zmdi-labels zmdi-hc-fw"></i> Categorías</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>provider/"><i class="zmdi zmdi-truck zmdi-hc-fw"></i> Proveedores</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>book/"><i class="zmdi zmdi-book zmdi-hc-fw"></i> Nuevo libro</a>
+						</li>
+					</ul>
+				</li>
+<?php		} ?>
+
+
 			<li>
 				<a href="<?php echo SERVERURL; ?>catalog/">
 					<i class="zmdi zmdi-book-image zmdi-hc-fw"></i> Catalogo
 				</a>
-			</li-->
+			</li>
 		</ul>
 	</div>
 </section>

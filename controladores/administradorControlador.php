@@ -205,12 +205,12 @@
 			$inicio = ($pagina>0) ? (($pagina*$noRegistros)-$noRegistros) : 0;
 
 			if (isset($busqueda) && $busqueda != "" ) {
-				$consulta = "SELECT SQL_CALC_FOUND_ROWS * FROM admin WHERE ((CuentaCodigo!='$codigo' AND id!='1') AND (AdminNombre LIKE '%$busqueda%' OR AdminApellido LIKE '%$busqueda%' OR AdminDNI LIKE '%$busqueda%')) ORDER BY AdminNombre ASC LIMIT $inicio, $noRegistros";
+				$consulta = "SELECT SQL_CALC_FOUND_ROWS * FROM admin WHERE ((CuentaCodigo!='$codigo' AND id!='2') AND (AdminNombre LIKE '%$busqueda%' OR AdminApellido LIKE '%$busqueda%' OR AdminDNI LIKE '%$busqueda%')) ORDER BY AdminNombre ASC LIMIT $inicio, $noRegistros";
 
 				$paginaURL = "adminsearch";
 
 			} else {
-				$consulta = "SELECT SQL_CALC_FOUND_ROWS * FROM admin WHERE CuentaCodigo!='$codigo' AND id!='1' ORDER BY AdminNombre ASC LIMIT $inicio, $noRegistros";
+				$consulta = "SELECT SQL_CALC_FOUND_ROWS * FROM admin WHERE CuentaCodigo!='$codigo' AND id!='2' ORDER BY AdminNombre ASC LIMIT $inicio, $noRegistros";
 				
 				$paginaURL = "adminlist";
 			}
@@ -276,7 +276,7 @@
 											</a>
 										</td>
 										<td>
-											<a href="'.SERVERURL.'mydata/admin'.modeloPrincipal::encriptar($administrador['CuentaCodigo']).'/" class="btn btn-success btn-raised btn-sm">
+											<a href="'.SERVERURL.'mydata/admin/'.modeloPrincipal::encriptar($administrador['CuentaCodigo']).'/" class="btn btn-success btn-raised btn-sm">
 												<i class="zmdi zmdi-account-box"></i>
 											</a>
 										</td>		
@@ -493,4 +493,81 @@
 			
 
 		}
+
+
+
+		public function mostrarInfoAdministradoresControlador($tipo, $codigo)
+		{
+			$codigo = modeloPrincipal::desencriptar($codigo);
+			$tipo = modeloPrincipal::limpiarCadena($tipo);
+
+			return administradorModelo::mostrarInfoAdministradoresModelo($tipo, $codigo);
+		}
+
+
+		public function actualizarAdministradorControlador()
+		{
+			$cuenta = modeloPrincipal::desencriptar($_POST['cuenta-up']);
+
+			$dni = modeloPrincipal::limpiarCadena($_POST['dni-up']);
+			$nombre = modeloPrincipal::limpiarCadena($_POST['nombre-up']);
+			$apellido = modeloPrincipal::limpiarCadena($_POST['apellido-up']);
+			$telefono = modeloPrincipal::limpiarCadena($_POST['telefono-up']);
+			$direccion = modeloPrincipal::limpiarCadena($_POST['direccion-up']);
+
+			$consulta = modeloPrincipal::ejecutarConsultaSimpleSQL("SELECT * FROM admin WHERE CuentaCodigo='$cuenta'");
+
+			$datosAdmin= $consulta->fetch();
+
+			if ($dni!=$datosAdmin['AdminDNI'])
+			{
+				$consulta1 = modeloPrincipal::ejecutarConsultaSimpleSQL("SELECT AdminDNI FROM admin WHERE AdminDNI='$dni'");
+				if ($consulta1->rowCount()>=1) {
+					$alerta = [
+						"Alerta" => "simple",
+						"Titulo" => "Error",
+						"Texto" => "El DNI ya esta registrado, verifique nuevamente",
+						"Tipo" => "error"
+					];
+
+					return modeloPrincipal::mostrarAlerta($alerta);
+					exit();
+
+				}
+				
+			}
+
+			$datosAdministrador = [
+				"DNI" => $dni,
+				"Nombre" => $nombre,
+				"Apellido" => $apellido,
+				"Telefono" => $telefono,
+				"Direccion" => $direccion,
+				"Codigo" => $cuenta
+			];
+
+
+			if (administradorModelo::actualizarAdministradorModelo($datosAdministrador)) {
+				$alerta = [
+						"Alerta" => "recargar",
+						"Titulo" => "Éxito",
+						"Texto" => "Los datos han sido actualizados.",
+						"Tipo" => "success"
+					];
+			}
+			else
+			{
+				$alerta = [
+						"Alerta" => "simple",
+						"Titulo" => "Error",
+						"Texto" => "Los datos NO pudieron ser actualizados. Intentelo nuevamente",
+						"Tipo" => "error"
+					];
+			}
+			
+			return modeloPrincipal::mostrarAlerta($alerta);
+			
+
+		}
+
 	}

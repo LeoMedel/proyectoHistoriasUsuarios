@@ -4,7 +4,7 @@
 
 	require_once "../core/configGeneral.php";
 
-	if (isset($_POST['dni-reg']) || isset($_POST['codigo-del']))
+	if (isset($_POST['dni-reg']) || isset($_POST['codigo-del']) || isset($_POST['cuenta-up']) )
 	{
 		
 		require_once "../controladores/administradorControlador.php";
@@ -21,10 +21,16 @@
 		{
 			echo $insAdministrador->eliminarAdministradorControlador();
 		}
+
+		if (isset($_POST['cuenta-up']) && isset($_POST['dni-up']) ) 
+		{
+			echo $insAdministrador->actualizarAdministradorControlador();
+		}
+
 	} 
 	else
 	{
-		session_start();
+		session_start(['name' => 'SBP']);
 		session_destroy();
 		echo '<script> window.location.href="'.SERVERURL.'login/"  </script>';
 	}

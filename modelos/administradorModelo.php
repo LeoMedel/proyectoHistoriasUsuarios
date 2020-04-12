@@ -66,4 +66,37 @@
 			return $eliminar;
 
 		}
+
+
+		protected function mostrarInfoAdministradoresModelo($tipo, $codigo)
+		{
+			if($tipo=="unico"){
+				$administradores = modeloPrincipal::conectarBD()->prepare("SELECT * FROM admin WHERE CuentaCodigo=:Codigo");
+				$administradores->bindParam("Codigo", $codigo);
+
+			}
+			elseif($tipo=="conteo")
+			{
+				$administradores = modeloPrincipal::conectarBD()->prepare("SELECT id FROM admin WHERE id!='2'");
+			}
+			
+			$administradores->execute();
+			return $administradores;
+		}
+
+		protected function actualizarAdministradorModelo($datos)
+		{
+			$actualizar = modeloPrincipal::conectarBD()->prepare("UPDATE admin SET AdminDNI=:DNI, AdminNombre=:Nombre, AdminApellido=:Apellido, AdminTelefono=:Telefono, AdminDireccion=:Direccion WHERE CuentaCodigo=:Codigo");
+			
+			$actualizar->bindParam("DNI", $datos['DNI']);
+			$actualizar->bindParam("Nombre", $datos['Nombre']);
+			$actualizar->bindParam("Apellido", $datos['Apellido']);
+			$actualizar->bindParam("Telefono", $datos['Telefono']);
+			$actualizar->bindParam("Direccion", $datos['Direccion']);
+			$actualizar->bindParam("Codigo", $datos['Codigo']);
+
+			$actualizar->execute();
+			return $actualizar;
+		}
+
 	}

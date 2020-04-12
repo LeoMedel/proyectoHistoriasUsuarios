@@ -99,6 +99,36 @@
 
 		}
 
+		protected function mostrarCuenta($codigo, $tipo)
+		{
+			$cuenta = self::conectarBD()->prepare("SELECT * FROM cuenta WHERE CuentaCodigo=:Codigo AND CuentaTipo=:Tipo");
+
+			$cuenta->bindParam("Codigo", $codigo);
+			$cuenta->bindParam("Tipo", $tipo);
+
+			$cuenta->execute();
+
+			return $cuenta;
+		}
+
+		protected function actualizarCuenta($datos)
+		{
+			$cuenta = self::conectarBD()->prepare("UPDATE cuenta SET CuentaPrivilegio=:Privilegio, CuentaUsuario=:Usuario, CuentaClave=:Clave, CuentaEmail=:Email, CuentaEstado=:Estado, CuentaGenero=:Genero, CuentaFoto=:Foto WHERE CuentaCodigo=:Codigo");
+
+			$cuenta->bindParam("Privilegio", $datos['CuentaPrivilegio']);
+			$cuenta->bindParam("Usuario", $datos['CuentaUsuario']);
+			$cuenta->bindParam("Clave", $datos['CuentaClave']);
+			$cuenta->bindParam("Email", $datos['CuentaEmail']);
+			$cuenta->bindParam("Estado", $datos['CuentaEstado']);
+			$cuenta->bindParam("Genero", $datos['CuentaGenero']);
+			$cuenta->bindParam("Foto", $datos['CuentaFoto']);
+			$cuenta->bindParam("Codigo", $datos['CuentaCodigo']);
+
+			$cuenta->execute();
+
+			return $cuenta;
+		}
+
 		protected function guardarBitacora($datos)
 		{
 			try

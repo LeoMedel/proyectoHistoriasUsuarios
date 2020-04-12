@@ -39,7 +39,7 @@
 
 			if (!isset($_SESSION['token_sesion']) || !isset($_SESSION['usuario_sesion'])) {
 
-				$loginControl->forzarCierreSesion();
+				echo $loginControl->forzarCierreSesion();
 			}
 
 

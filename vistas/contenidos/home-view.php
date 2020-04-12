@@ -1,3 +1,11 @@
+
+<?php
+    if ($_SESSION['tipo_sesion'] != "Administrador") {
+        //echo $loginControl->forzarCierreSesion();
+        echo $loginControl->redireccionarUsuarioControlador($_SESSION['tipo_sesion']);
+    }
+?>
+
 <div class="container-fluid">
 	<div class="page-header">
 	  <h1 class="text-titles">REGISTROS <small>Administrador, Docentes y Estudiantes</small></h1>
@@ -5,17 +13,28 @@
 </div>
 <div class="full-box text-center" style="padding: 30px 10px;">
 	
+
+    <?php
+        require "./controladores/administradorControlador.php";
+        $administradorControl = new administradorControlador();
+
+        $conteoAdmin = $administradorControl->mostrarInfoAdministradoresControlador("conteo", 0)
+    ?>
+
+
     <article class="full-box tile">
-		<div class="full-box tile-title text-center text-titles text-uppercase">
-			ADMINISTRADORES
-		</div>
-		<div class="full-box tile-icon text-center">
-			<i class="zmdi zmdi-laptop"></i>
-		</div>
-		<div class="full-box tile-number text-titles">
-			<p class="full-box">X</p>
-			<small>Registros</small>
-		</div>
+        <a href="<?php echo SERVERURL; ?>adminlist/">
+            <div class="full-box tile-title text-center text-titles text-uppercase">
+                ADMINISTRADORES
+            </div>
+            <div class="full-box tile-icon text-center">
+                <i class="zmdi zmdi-laptop"></i>
+            </div>
+            <div class="full-box tile-number text-titles">
+                <p class="full-box"> <?php echo $conteoAdmin->rowCount(); ?> </p>
+                <small>Registros</small>
+            </div>
+        </a>
 	</article>
 
 	<article class="full-box tile">

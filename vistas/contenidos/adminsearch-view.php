@@ -1,3 +1,10 @@
+
+<?php
+	if ($_SESSION['tipo_sesion'] != "Administrador") {
+		echo $loginControl->forzarCierreSesion();
+	}
+?>
+
 <div class="container-fluid">
 	<div class="page-header">
 	  <h1 class="text-titles"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Usuarios <small>ADMINISTRADORES</small></h1>
